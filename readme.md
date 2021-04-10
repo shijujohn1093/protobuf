@@ -1,0 +1,1 @@
+Protobuf sample model creation
