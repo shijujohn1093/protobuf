@@ -18,6 +18,7 @@ public class PerformanceTest {
 		Runnable json = () -> {
 			try {
 				byte[] personBytes = mapper.writeValueAsBytes(person);
+				System.out.println(personBytes.length);
 				JPerson newPerson = mapper.readValue(personBytes, JPerson.class);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -25,11 +26,12 @@ public class PerformanceTest {
 		};
 
 		// protobuf serializaion
-		Person sam = Person.newBuilder().setName("sam")..setAge(Int32Value.newBuilder().setValue(10).build()).build();
+		Person sam = Person.newBuilder().setName("sam").setAge(Int32Value.newBuilder().setValue(10).build()).build();
 		
 		Runnable proto = () -> {
 			try {
 				byte[] byteArray = sam.toByteArray();
+				System.out.println(byteArray.length);
 				Person newSam = Person.parseFrom(byteArray);
 			} catch (InvalidProtocolBufferException e) {
 				// TODO Auto-generated catch block
@@ -37,7 +39,7 @@ public class PerformanceTest {
 			}
 		}; 
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 1; i++) {
 			runPerformanceTest(json, "   JSON");
 			runPerformanceTest(proto, "PROTO");
 		}
@@ -47,7 +49,7 @@ public class PerformanceTest {
 
 	public static void runPerformanceTest(Runnable runnable, String method) {
 		long startTime = System.currentTimeMillis();
-		for (int i = 0; i < 10_000_000; i++) {
+		for (int i = 0; i < 1; i++) {
 			runnable.run();
 		}
 		long endTime = System.currentTimeMillis();
