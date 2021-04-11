@@ -1,4 +1,4 @@
-Protobuf sample model creation
+IDL(Interface description language) Protobuf sample model creation
 
 /*
 1 is tag;  
